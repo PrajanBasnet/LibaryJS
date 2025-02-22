@@ -19,15 +19,14 @@ let dataKey = 0;
 function addToLibary(bookname,author,read){
     let book = new Book(bookname,author,read);
      libary.push(book);
-     libary.forEach(data => {
-        console.log(libary)
+
         let wrapper = document.createElement("div");
         let insertData = document.createTextNode(
-            `${data.bookname} - ${data.author}`
+            `${libary.bookname} - ${libary.author}`
         )
         wrapper.appendChild(insertData);
         mainpannel.appendChild(wrapper);
-     });
+     
 
      console.log(libary.length)
 }
