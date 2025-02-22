@@ -30,15 +30,15 @@ function addToLibary(bookname, author, read) {
         createButton.addEventListener("click", () => {
             let key = parseInt(createButton.dataset.dataId)
             console.log(libary);
-            libary.splice(key,1);
+            libary.splice(key, 1);
             mainpannel.removeChild(wrapper);
-            
-            
+
         })
-        
-                createButton.dataset.dataId = i;
-                createButton.appendChild(text);
+
+        createButton.dataset.dataId = i;
+        createButton.appendChild(text);
         wrapper.appendChild(createButton);
+
         wrapper.appendChild(insertData);
         mainpannel.appendChild(wrapper);
 
