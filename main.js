@@ -14,20 +14,38 @@ function Book(bookname, author, read) {
     }
 }
 
-let dataKey = 0;
 function addToLibary(bookname, author, read) {
     let book = new Book(bookname, author, read);
     libary.push(book);
     let mainpannel = document.querySelector(".mainpannel");
     mainpannel.innerHTML = "";
+
     for (let i = 0; i < libary.length; i++) {
         let wrapper = document.createElement("div");
         wrapper.className = "card";
         let insertData = document.createTextNode(`${libary[i].bookname} - ${libary[i].author}`)
+        let createButton = document.createElement("button");
+        createButton.className = "btn";
+        let text = document.createTextNode("Button");
+
+        createButton.dataset.dataId = i;
+        createButton.appendChild(text);
+        wrapper.appendChild(createButton);
         wrapper.appendChild(insertData);
         mainpannel.appendChild(wrapper);
+        
+        createButton.addEventListener("click",()=>{
+            let key = parseInt(createButton.dataset.dataId)
+            console.log(libary);
+            mainpannel.removeChild(wrapper);
 
+            
+        })
+        
+        console.log(wrapper);
+        console.log(createButton);
     }
+
 }
 
 
