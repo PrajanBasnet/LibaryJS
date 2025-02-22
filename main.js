@@ -27,21 +27,22 @@ function addToLibary(bookname, author, read) {
         let createButton = document.createElement("button");
         createButton.className = "btn";
         let text = document.createTextNode("Button");
-
-        createButton.dataset.dataId = i;
-        createButton.appendChild(text);
-        wrapper.appendChild(createButton);
-        wrapper.appendChild(insertData);
-        mainpannel.appendChild(wrapper);
-        
-        createButton.addEventListener("click",()=>{
+        createButton.addEventListener("click", () => {
             let key = parseInt(createButton.dataset.dataId)
             console.log(libary);
+            libary.splice(key,1);
             mainpannel.removeChild(wrapper);
-
+            
             
         })
         
+                createButton.dataset.dataId = i;
+                createButton.appendChild(text);
+        wrapper.appendChild(createButton);
+        wrapper.appendChild(insertData);
+        mainpannel.appendChild(wrapper);
+
+
         console.log(wrapper);
         console.log(createButton);
     }
