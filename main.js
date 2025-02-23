@@ -7,15 +7,16 @@ let mainpannel = document.querySelector(".mainpannel");
 
 let libary = [];
 let bookred = false;
-function Book(bookname, author, read) {
+function Book(bookname, author, read,page) {
     this.bookname = bookname;
     this.author = author;
     this.read = read;
+    this.page = page;
 }
 
 
-function addToLibary(bookname, author, read) {
-    let book = new Book(bookname, author, read);
+function addToLibary(bookname, author, read,page) {
+    let book = new Book(bookname, author, read,page);
     libary.push(book);
     mainpannel.innerHTML = "";
     displayBooks(libary);
@@ -25,6 +26,7 @@ function addToLibary(bookname, author, read) {
 let readvalueCheck = document.querySelector("#read");
 
 function displayBooks(libary) {
+
     mainpannel.innerHTML = "";
     let i = 0;
     libary.forEach(bookList => {
@@ -39,25 +41,26 @@ function displayBooks(libary) {
         removebtn.setAttribute("id", i++);
         removebtn.className = "remove";
         readButton.className = "remove";
-        readButton.innerHTML = `${readvalueCheck.value}`;
+        readButton.setAttribute("id", i++);
+
+        readButton.innerHTML = `${bookList.read}`;
         readButton.addEventListener("click",(e)=>{
             if(bookred === false){
                 bookred = true;
                 readButton.innerHTML = " Book has been read ";
             }else{
-                console.log("Not read");
                 bookred = false;
                 readButton.innerHTML = "Not read ";
 
             }
         })
         removebtn.addEventListener("click", (e) => {
-            console.log(libary.length);
             remove(removebtn.id);
 
         })
         
-        card.innerHTML = `<h3>BookName:</h3> ${bookList.bookname}<br> <h3>Author</h3> ${bookList.author} <br> `;
+        card.innerHTML = `BookName: <h3>${bookList.bookname} </h3><br> Author <h3> ${bookList.author}</h3> <br>
+        Pages: <h3> ${bookList.page}</h3> `;
         card.appendChild(removebtn);
         card.append(readButton);
         mainpannel.appendChild(card);
@@ -86,9 +89,12 @@ form.addEventListener("submit", (e) => {
     let bookName = document.getElementById("bname").value;
     let author = document.getElementById("author").value;
     let readvalue = document.querySelector("#read");
+    let page = document.getElementById("page").value;
+
+
     e.preventDefault();
 
-    addToLibary(bookName, author, readvalue);
+    addToLibary(bookName, author, readvalue.value , page);
     dialog.close();
 })
 showBox.addEventListener("click", () => {
