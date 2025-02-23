@@ -46,3 +46,7 @@ dialog{
     position: relative;
     left: 30px;
 }
+.addBook {
+    width: 200px;
+    background-color: #99a1af;
+}
