@@ -42,14 +42,20 @@ dialog{
 }
 
 .form{
-    height: 200px;
-    width: 240px;
+    height: 250px;
+    width: 540px;
     position: relative;
     left: 30px;
+}
+.add{
+    align-items: center;
 }
 .addBook {
     width: 200px;
     background-color: #99a1af;
+    align-items: center;
+    position: relative;
+    left: 3vh;
 }
 
 .card .checkbutton{

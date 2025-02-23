@@ -14,14 +14,6 @@ function Book(bookname, author, read) {
     this.read = read;
 
 }
-Book.prototype.readvalue = function(){
-     this.read;
-     let checkbutton = document.createElement("input");
-     checkbutton.type = "checkbox";
-     checkbutton.checked = this.read;
-
-}
-
 
 function addToLibary(bookname, author, read) {
     mainpannel.innerHTML = "";
@@ -39,7 +31,6 @@ function addToLibary(bookname, author, read) {
         createButton.className = "btn";
         createButton.className = "checkbutton";
             
-        // text
 
         let insertData = document.createTextNode(`BookName: ${libary[i].bookname}`)
         let authorText = document.createTextNode(`Author: ${libary[i].author} `)
@@ -74,7 +65,6 @@ function addToLibary(bookname, author, read) {
 
 }
 Object.setPrototypeOf(Book.prototype,addToLibary.prototype)
-
 
 
 form.addEventListener("submit", (e) => {
