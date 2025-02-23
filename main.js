@@ -1,71 +1,86 @@
 let dialog = document.querySelector("dialog");
 let showBox = document.querySelector(".addBook");
-let close = document.querySelector("dialog button");
+let close = document.querySelector("dialog img");
 let form = document.querySelector("form");
 let mainpannel = document.querySelector(".mainpannel");
 
 
 let libary = [];
-
-
+let bookred = false;
 function Book(bookname, author, read) {
     this.bookname = bookname;
     this.author = author;
     this.read = read;
+}
+
+
+function addToLibary(bookname, author, read) {
+    let book = new Book(bookname, author, read);
+    libary.push(book);
+    mainpannel.innerHTML = "";
+    displayBooks(libary);
 
 }
 
-function addToLibary(bookname, author, read) {
+let readvalueCheck = document.querySelector("#read");
+
+function displayBooks(libary) {
     mainpannel.innerHTML = "";
-    let book = new Book(bookname, author, read);
-    libary.push(book);
+    let i = 0;
+    libary.forEach(bookList => {
 
-    for (let i = 0; i < libary.length; i++) {
-        let wrapper = document.createElement("div");
-        let checkbutton = document.createElement("input");
-        let createButton = document.createElement("button");
-        let newWrapper = document.createElement("p");
+        let card = document.createElement("div");
+        let removebtn = document.createElement("button");
+        let readButton = document.createElement("button");
 
-        newWrapper.className= "newWrapper";
-        wrapper.className = "card";
-        createButton.className = "btn";
-        createButton.className = "checkbutton";
-            
 
-        let insertData = document.createTextNode(`BookName: ${libary[i].bookname}`)
-        let authorText = document.createTextNode(`Author: ${libary[i].author} `)
-        let text = document.createTextNode("delete");
-        let checkButtonText = document.createTextNode("Did you read the Text");
-        checkbutton.type = "checkbox";
-        checkbutton.checked = libary[i].read;
+        card.className = "card";
+        removebtn.innerHTML = "<p> remove <p>";
+        removebtn.setAttribute("id", i++);
+        removebtn.className = "remove";
+        readButton.className = "remove";
+        readButton.innerHTML = `${readvalueCheck.value}`;
+        readButton.addEventListener("click",(e)=>{
+            if(bookred === false){
+                bookred = true;
+                readButton.innerHTML = " Book has been read ";
+            }else{
+                console.log("Not read");
+                bookred = false;
+                readButton.innerHTML = "Not read ";
 
-        createButton.addEventListener("click", () => {
-            let key = parseInt(createButton.dataset.dataId)
-            libary.splice(key, 1);
-            mainpannel.removeChild(wrapper);
+            }
+        })
+        removebtn.addEventListener("click", (e) => {
+            console.log(libary.length);
+            remove(removebtn.id);
 
         })
         
-        createButton.dataset.dataId = i;
-
-        createButton.appendChild(text);
-        
-        newWrapper.appendChild(insertData);
-        newWrapper.appendChild(document.createElement("br"));
-        newWrapper.appendChild(authorText);
-        
-        wrapper.appendChild(createButton);
-        wrapper.appendChild(checkButtonText);
-        wrapper.appendChild(document.createElement("br"));
-        wrapper.appendChild(checkbutton);        
-        wrapper.appendChild(newWrapper);
-        mainpannel.appendChild(wrapper);
-        
-    }
+        card.innerHTML = `<h3>BookName:</h3> ${bookList.bookname}<br> <h3>Author</h3> ${bookList.author} <br> `;
+        card.appendChild(removebtn);
+        card.append(readButton);
+        mainpannel.appendChild(card);
+        console.log(removebtn);
+    });
 
 }
-Object.setPrototypeOf(Book.prototype,addToLibary.prototype)
 
+function remove(index) {
+    console.log(typeof(index));
+    libary.splice(index, 1);
+    displayBooks(libary);
+}
+function Read(){
+    if(bookred === false){
+        bookred = true;
+        readvalueCheck.value = "Book has been read ";
+    }else{
+        bookred = false;
+        readvalueCheck.value = "Not read ";
+    }
+}
+Object.setPrototypeOf(Book.prototype, addToLibary.prototype)
 
 form.addEventListener("submit", (e) => {
     let bookName = document.getElementById("bname").value;
@@ -73,8 +88,7 @@ form.addEventListener("submit", (e) => {
     let readvalue = document.querySelector("#read");
     e.preventDefault();
 
-    // if(readd.value == "o")
-    addToLibary(bookName, author, readvalue.checked);
+    addToLibary(bookName, author, readvalue);
     dialog.close();
 })
 showBox.addEventListener("click", () => {

@@ -13,7 +13,7 @@
         <div class="wrapper">
             <div class="sidepannel">
                 <dialog>
-                    <button>close</button>
+                    <img  src="img/remove.svg" alt="close" srcset="">
                     <form class="form" method="dialog">
                         <label for="bname">BookName</label><br>
                         <input type="text" name="bname" id="bname" required><br>
@@ -23,12 +23,17 @@
                         <input type="number" name="author" id="author" required><br>
                         <label for="read">already Read?</label>
                         <div>
-                            <input type="checkbox" name="read" id="read">
+                            <input type="button" name="read" id="read" value="Read" onclick="Read()">
                         </div>
 
                         <br><button>Submit</button>
                     </form>
                 </dialog>
+                <div class="libarySidebar">
+
+                    <img src="img/lib.svg" alt="" srcset="">
+                    <h2>Libary Managment System</h2>
+                </div>
                 <div class="add">
                     <button class="addBook">Add Book</button>
                 </div>
