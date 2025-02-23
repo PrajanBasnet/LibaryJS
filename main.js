@@ -19,6 +19,7 @@ Book.prototype.readvalue = function(){
      let checkbutton = document.createElement("input");
      checkbutton.type = "checkbox";
      checkbutton.checked = this.read;
+
 }
 
 
@@ -26,19 +27,26 @@ function addToLibary(bookname, author, read) {
     mainpannel.innerHTML = "";
     let book = new Book(bookname, author, read);
     libary.push(book);
-    book.readvalue();
-    
+
     for (let i = 0; i < libary.length; i++) {
         let wrapper = document.createElement("div");
         let checkbutton = document.createElement("input");
-        wrapper.className = "card";
-        let insertData = document.createTextNode(`${libary[i].bookname} - ${libary[i].author}`)
         let createButton = document.createElement("button");
+        let newWrapper = document.createElement("p");
+
+        newWrapper.className= "newWrapper";
+        wrapper.className = "card";
         createButton.className = "btn";
-        let text = document.createTextNode("Button");
-    
+        createButton.className = "checkbutton";
+            
+        // text
+
+        let insertData = document.createTextNode(`BookName: ${libary[i].bookname}`)
+        let authorText = document.createTextNode(`Author: ${libary[i].author} `)
+        let text = document.createTextNode("delete");
+        let checkButtonText = document.createTextNode("Did you read the Text");
         checkbutton.type = "checkbox";
-        checkbutton.checked = book.readvalue();
+        checkbutton.checked = libary[i].read;
 
         createButton.addEventListener("click", () => {
             let key = parseInt(createButton.dataset.dataId)
@@ -48,12 +56,18 @@ function addToLibary(bookname, author, read) {
         })
         
         createButton.dataset.dataId = i;
-        createButton.appendChild(text);
-        wrapper.appendChild(createButton);
-        wrapper.appendChild(checkbutton);
 
+        createButton.appendChild(text);
         
-        wrapper.appendChild(insertData);
+        newWrapper.appendChild(insertData);
+        newWrapper.appendChild(document.createElement("br"));
+        newWrapper.appendChild(authorText);
+        
+        wrapper.appendChild(createButton);
+        wrapper.appendChild(checkButtonText);
+        wrapper.appendChild(document.createElement("br"));
+        wrapper.appendChild(checkbutton);        
+        wrapper.appendChild(newWrapper);
         mainpannel.appendChild(wrapper);
         
     }
@@ -67,7 +81,6 @@ form.addEventListener("submit", (e) => {
     let bookName = document.getElementById("bname").value;
     let author = document.getElementById("author").value;
     let readvalue = document.querySelector("#read");
-
     e.preventDefault();
 
     // if(readd.value == "o")
