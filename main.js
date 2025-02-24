@@ -42,21 +42,13 @@ function displayBooks(libary) {
         removebtn.className = "remove";
         readButton.className = "remove";
         readButton.setAttribute("id", i++);
-
-        readButton.innerHTML = `${bookList.read}`;
+        readButton.innerHTML = bookList.read;
         readButton.addEventListener("click",(e)=>{
-            if(bookred === false){
-                bookred = true;
-                readButton.innerHTML = " Book has been read ";
-            }else{
-                bookred = false;
-                readButton.innerHTML = "Not read ";
-
-            }
+            bookred = !bookred;
+            readButton.innerHTML = (bookred === false) ? "Not Read": "Book Read";
         })
         removebtn.addEventListener("click", (e) => {
             remove(removebtn.id);
-
         })
         
         card.innerHTML = `BookName: <h3>${bookList.bookname} </h3><br> Author <h3> ${bookList.author}</h3> <br>
@@ -75,13 +67,8 @@ function remove(index) {
     displayBooks(libary);
 }
 function Read(){
-    if(bookred === false){
-        bookred = true;
-        readvalueCheck.value = "Book has been read ";
-    }else{
-        bookred = false;
-        readvalueCheck.value = "Not read ";
-    }
+    bookred = !bookred;
+    readvalueCheck.value = (bookred === false) ? "Not Read" : "Book Read";
 }
 Object.setPrototypeOf(Book.prototype, addToLibary.prototype)
 
