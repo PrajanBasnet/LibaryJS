@@ -38,14 +38,18 @@ function displayBooks(libary) {
 
         card.className = "card";
         removebtn.innerHTML = "<p> remove <p>";
-        removebtn.setAttribute("id", i++);
+        removebtn.setAttribute("id", i);
         removebtn.className = "remove";
         readButton.className = "remove";
-        readButton.setAttribute("id", i++);
+        readButton.setAttribute("id", i);
+        i++;
         readButton.innerHTML = bookList.read;
         readButton.addEventListener("click",(e)=>{
-            bookred = !bookred;
-            readButton.innerHTML = (bookred === false) ? "Not Read": "Book Read";
+            // bookred = !bookred;
+            // readButton.innerHTML = (bookred === false) ? "Not Read": "Book Read";
+            readButton.innerHTML = (bookList.read == "Not Read") ? "Book Read": "Not Read";
+            bookList.read = readButton.innerHTML;
+            console.log(bookList.read);
         })
         removebtn.addEventListener("click", (e) => {
             remove(removebtn.id);
@@ -56,21 +60,19 @@ function displayBooks(libary) {
         card.appendChild(removebtn);
         card.append(readButton);
         mainpannel.appendChild(card);
-        console.log(removebtn);
     });
 
 }
 
 function remove(index) {
     console.log(typeof(index));
-    libary.splice(index, 1);
+    libary.splice(parseInt(index,10), 1);
     displayBooks(libary);
 }
 function Read(){
     bookred = !bookred;
     readvalueCheck.value = (bookred === false) ? "Not Read" : "Book Read";
 }
-Object.setPrototypeOf(Book.prototype, addToLibary.prototype)
 
 form.addEventListener("submit", (e) => {
     let bookName = document.getElementById("bname").value;
@@ -78,9 +80,7 @@ form.addEventListener("submit", (e) => {
     let readvalue = document.querySelector("#read");
     let page = document.getElementById("page").value;
 
-
     e.preventDefault();
-
     addToLibary(bookName, author, readvalue.value , page);
     dialog.close();
 })
